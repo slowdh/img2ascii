@@ -51,7 +51,7 @@ def capture_and_convert(size=(75, 25)):
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-    video_capture.release()
+    cao.release()
     cv2.destroyAllWindows()
 
 
