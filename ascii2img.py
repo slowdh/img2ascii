@@ -56,12 +56,14 @@ def capture_and_convert(size=(640, 480), resize_factor=1., source_path=0, fps=25
     char_img_size = (size[0] // 10, size[1] // 19)
 
     if save_path is not None:
-        codec_info_fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        codec_info_fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         video_writer = cv2.VideoWriter(save_path, codec_info_fourcc, fps, size)
 
     while cap.isOpened():
         t0 = time.time()
         _, frame = cap.read()
+        if frame is None:
+            break
         gray = preprocess_image(frame, char_img_size)
         converted = convert(gray)
         pil_img = text_to_image(converted, size)
