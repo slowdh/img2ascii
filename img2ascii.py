@@ -64,6 +64,7 @@ def capture_and_convert(size=(640, 480), resize_factor=1., source_path=0, fps=25
         _, frame = cap.read()
         if frame is None:
             break
+
         gray = preprocess_image(frame, char_img_size)
         converted = convert(gray)
         pil_img = text_to_image(converted, size)
@@ -71,7 +72,7 @@ def capture_and_convert(size=(640, 480), resize_factor=1., source_path=0, fps=25
         cv2.imshow("ASCII WORLD", cv_img)
         t1 = time.time()
 
-        if save_path is not None:
+        if source_path == 0 and save_path is not None:
             video_writer.write(cv_img)
             if source_path == 0:
                 fill_dropped_frame(video_writer, cv_img, fps, t0, t1)
@@ -80,7 +81,3 @@ def capture_and_convert(size=(640, 480), resize_factor=1., source_path=0, fps=25
 
     cap.release()
     cv2.destroyAllWindows()
-
-
-# test time!
-capture_and_convert(size=None, resize_factor=1, source_path='test0.mp4', save_path='/save_path/test1.mp4')
